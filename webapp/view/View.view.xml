@@ -1,0 +1,64 @@
+<mvc:View controllerName="com.lab2dev.browserorders.controller.View"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title} ">
+        <content>
+            <Panel class="">
+                <Title text="Orders ({Orders>/length})" level="H1" />
+                <List
+                    id="OrdersList"
+                    items="{
+                        path : 'Orders>/'
+                     }">
+                    <headerToolbar>
+                        <Toolbar>
+                            <SearchField width="30%" search=".onSearch" />
+                            <ToolbarSpacer />
+                            <Button
+                                icon="sap-icon://filter"
+                            />
+                            <Button
+                                icon="sap-icon://group-2"
+                            />
+                        </Toolbar>
+                    </headerToolbar>
+                    <ObjectListItem
+                        title="Order {Orders>OrderID}"
+                        type="Navigation"
+                        press=".onListItemPress"
+                        number="{
+                            path: 'Orders>OrderDate',
+                            formatter: '.formatter.formatterDate'
+                        }"
+                    >
+                        <firstStatus>
+                            <ObjectStatus
+                                text="{
+            
+                                    parts: [
+                                        {path: 'Orders>OrderDate'},
+                                        {path: 'Orders>ShippedDate'}
+                                    ],
+                                    formatter: '.formatter.statusOrder'
+                                }"
+                                state="{
+                                    parts: [
+                                        {path: 'Orders>OrderDate'},
+                                        {path: 'Orders>ShippedDate'}
+                                    ],
+                                    formatter: '.formatter.statusFormatter'
+                                }"
+                            />
+                        </firstStatus>
+                        <ObjectAttribute text="{Orders>ShipName}" />
+                        <ObjectAttribute
+                            text="Shipped: {
+                                path: 'Orders>ShippedDate',
+                                formatter: '.formatter.formatterDateExt'
+                        }" />
+                    </ObjectListItem>
+                </List>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

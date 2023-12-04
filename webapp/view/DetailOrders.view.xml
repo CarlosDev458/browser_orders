@@ -1,0 +1,176 @@
+<mvc:View
+    xmlns:c="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="com.lab2dev.browserorders.controller.Detail"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:layout="sap.ui.layout"
+    height="100%"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:fiori="sap.ui.webc.fiori"
+    xmlns:web="sap.ui.webc.main">
+
+        <IconTabBar
+            id="idIconTabBarMulti"
+            expanded="{device>/isNoPhone}"
+            class="">
+            <items>
+                <IconTabFilter icon="sap-icon://shipping-status" key="info">
+                    <VBox class="sapUiSmallMargin">
+                        <f:SimpleForm id="SimpleFormChange3547"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            title="Shipping Address"
+                            labelSpanXL="3"
+                            labelSpanL="3"
+                            labelSpanM="3"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="4"
+                            emptySpanL="4"
+                            emptySpanM="4"
+                            emptySpanS="0"
+                            columnsXL="1"
+                            columnsL="1"
+                            columnsM="1"
+                            singleContainerFullSize="false">
+                            <f:content>
+                                <Label text="Name" />
+                                <Text id="name2" text="{Orders>ShipName}" />
+                                <Label text="Street/No." />
+                                <Text text="{Orders>ShipAddress}" />
+                                <Label text="ZIP Code/City" />
+                                <Text text="{Orders>ShipCity}" />
+                                <Label text="Region" />
+                                <Text text="{Orders>ShipRegion}" />
+                                <Label text="Country" />
+                                <Text text="{Orders>ShipCountry}" />
+                            </f:content>
+                        </f:SimpleForm>
+                    </VBox>
+                </IconTabFilter>
+                <IconTabFilter
+                    icon="sap-icon://employee"
+                    key="attachments"
+                    count="">
+                    <VBox class="sapUiSmallMargin">
+                        <f:SimpleForm id="SimpleFormChange480_Trial"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            title="Processor Information"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="0"
+                            emptySpanL="0"
+                            emptySpanM="0"
+                            emptySpanS="0"
+                            columnsXL="3"
+                            columnsL="2"
+                            columnsM="2"
+                            singleContainerFullSize="false">
+                            <f:content>
+                                <core:Title text="Details" />
+
+                                <Label text="Name" />
+                                <Text text="{Orders>ShipName}" />
+                                <Label text="Street/No." />
+                                <Text text="{Orders>ShipAddress}" />
+                                <Label text="ZIP Code/City" />
+                                <Text text="{Orders>ShipCity}" />
+                                <Label text="Country" />
+                                <Text text="{Orders>ShipCountry}" />
+                                <core:Title text="Picture" />
+                                <Image
+                                    src="https://source.unsplash.com/random/200x200/?person"
+                                />
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </VBox>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+
+        <fiori:Page>
+            <fiori:content>
+                <VBox>
+                    <Title text="Line items({Orders>Order_Details/results/length})"></Title>
+
+                    <web:Table
+                        id="idProductsTable"
+                        class=""
+                        stickyColumnHeader="true"
+                        rowClick="handleRowClick"
+                        mode="SingleSelect"
+                        selectionChange="handleSelectionChange"
+                        rows="{
+                    path: 'Orders>Order_Details/results'
+                }">
+
+                        <web:columns>
+                            <web:TableColumn>
+                                <Label text="Product" />
+                            </web:TableColumn>
+                            <web:TableColumn>
+                                <Label text="UnitPrice" />
+                            </web:TableColumn>
+                            <web:TableColumn>
+                                <Label text="Quantity" />
+                            </web:TableColumn>
+                            <web:TableColumn>
+                                <Label text="Total" />
+                            </web:TableColumn>
+                        </web:columns>
+                        <web:rows>
+                            <web:TableRow type="Active">
+                                <web:cells>
+                                    <web:TableCell>
+                                        <VBox>
+                                            <Text text="{Orders>Product/ProductName}" />
+                                            <ObjectStatus text="{Orders>ProductID}"></ObjectStatus>
+                                        </VBox>
+                                    </web:TableCell>
+                                    <web:TableCell>
+                                        <web:content>
+                                            <Text
+                                                text="{
+                                            parts:[
+                                                {path: 'Orders>UnitPrice',
+                                                formatter: '.formatter.numberDecimals'}
+                                            ]
+                                        }"
+                                            />
+                                        </web:content>
+                                    </web:TableCell>
+                                    <web:TableCell>
+                                        <web:content>
+                                            <Text text="{Orders>Quantity}" />
+                                        </web:content>
+                                    </web:TableCell>
+                                    <web:TableCell>
+                                        <web:content>
+                                            <Text
+                                                text="{        
+                                            parts: [
+                                                {path: 'Orders>UnitPrice'},
+                                                {path: 'Orders>Quantity'}
+                                            ],
+                                            formatter: '.formatter.totalPrice'
+                                        }"
+                                            />
+                                        </web:content>
+                                    </web:TableCell>
+                                </web:cells>
+                            </web:TableRow>
+                        </web:rows>
+                    </web:Table>
+                </VBox>
+            </fiori:content>
+        </fiori:Page>
+</mvc:View>

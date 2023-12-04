@@ -1,0 +1,69 @@
+<mvc:View
+	xmlns:c="sap.ui.core"
+	controllerName="com.lab2dev.browserorders.controller.Detail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns="sap.m"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
+	height="100%">
+	<f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true"
+		headerExpanded="{/headerExpanded}" showFooter="true" fitContent="true">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Orders {Orders>OrderID}" />
+				</f:heading>
+				<f:content>
+				</f:content>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<FlexBox
+					alignItems="Start"
+					justifyContent="SpaceBetween">
+					<items>
+						<Panel
+							backgroundDesign="Transparent"
+							class="sapUiNoContentPadding">
+							<content>
+								<layout:HorizontalLayout
+									allowWrapping="true">
+									<layout:VerticalLayout
+										class="sapUiMediumMarginEnd">
+										<ObjectAttribute title="Customer" text="{Orders>CustomerID}" />
+										<ObjectAttribute title="Ordered"
+											text="{
+												path: 'Orders>OrderDate',
+												formatter: '.formatter.formatterDateExt'
+										}" />
+										<ObjectAttribute title="Shipped"
+											text="{
+												path: 'Orders>ShippedDate',
+												formatter: '.formatter.formatterDateExt'
+										}" />
+									</layout:VerticalLayout>
+									<layout:VerticalLayout>
+										<ObjectAttribute title="Freight" />
+										<ObjectStatus
+											text="{
+												path: 'Orders>Freight',
+												formatter: '.formatter.numberDecimals'
+											}"
+											state="{= ${Orders>Freight} > 40 ? 'Warning' : 'Success' }" />
+									</layout:VerticalLayout>
+								</layout:HorizontalLayout>
+							</content>
+						</Panel>
+					</items>
+				</FlexBox>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<mvc:XMLView viewName="com.lab2dev.browserorders.view.DetailOrders" />
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
